@@ -9,7 +9,9 @@ module.exports = async (req, res) => {
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
-      console.error(`Salesforce API Error: ${response.status} - ${response.statusText}`);
+      console.error(
+        `Salesforce API Error: ${response.status} - ${response.statusText}`
+      );
       return res
         .status(response.status)
         .json({ error: "Failed to fetch data from Salesforce API" });
