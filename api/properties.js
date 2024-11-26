@@ -1,11 +1,10 @@
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
   const apiUrl =
     "https://bramwellre.my.salesforce-sites.com/webhook/services/apexrest/XmlResponse/Propertyfinder";
 
   try {
-    console.log("Fetching data from Salesforce API...");
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
@@ -17,11 +16,10 @@ module.exports = async (req, res) => {
 
     const data = await response.text(); // Assuming the API returns XML as text
 
-    console.log("Data fetched successfully");
     res.setHeader("Content-Type", "application/xml");
     res.status(200).send(data);
   } catch (error) {
-    console.error("Error during function execution:", error);
+    console.error("Error during function execution:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
