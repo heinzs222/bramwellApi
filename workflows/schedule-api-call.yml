@@ -1,0 +1,15 @@
+name: Scheduled API Call
+
+on:
+  schedule:
+    - cron: '*/20 * * * *' # Runs every 20 minutes
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  call-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Make API Request
+        run: |
+          curl -X GET https://bramwell-api.vercel.app/api/properties
