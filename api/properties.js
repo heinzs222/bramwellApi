@@ -1,4 +1,3 @@
-// api/properties.js
 const fetch = require("node-fetch");
 
 module.exports = async (req, res) => {
@@ -6,10 +5,11 @@ module.exports = async (req, res) => {
     "https://bramwellre.my.salesforce-sites.com/webhook/services/apexrest/XmlResponse/Propertyfinder";
 
   try {
+    console.log("Fetching data from Salesforce API...");
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
-      console.error(`Salesforce API Error: ${response.statusText}`);
+      console.error(`Salesforce API Error: ${response.status} - ${response.statusText}`);
       return res
         .status(response.status)
         .json({ error: "Failed to fetch data from Salesforce API" });
@@ -17,11 +17,11 @@ module.exports = async (req, res) => {
 
     const data = await response.text(); // Assuming the API returns XML as text
 
-    // Set XML Content-Type header and send response
+    console.log("Data fetched successfully");
     res.setHeader("Content-Type", "application/xml");
     res.status(200).send(data);
   } catch (error) {
-    console.error("Internal Server Error:", error.message);
+    console.error("Error during function execution:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
