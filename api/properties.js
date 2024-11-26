@@ -1,7 +1,7 @@
 // api/properties.js
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
-export default async (req, res) => {
+module.exports = async (req, res) => {
   const apiUrl =
     "https://bramwellre.my.salesforce-sites.com/webhook/services/apexrest/XmlResponse/Propertyfinder";
 
