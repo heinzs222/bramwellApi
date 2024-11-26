@@ -2,6 +2,17 @@
 const fetch = require("node-fetch");
 
 module.exports = async (req, res) => {
+  // Set CORS headers
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins. Replace "*" with your frontend URL for better security.
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // Handle preflight (OPTIONS) requests
+  if (req.method === "OPTIONS") {
+    res.status(200).end();
+    return;
+  }
+
   const apiUrl =
     "https://bramwellre.my.salesforce-sites.com/webhook/services/apexrest/XmlResponse/Propertyfinder";
 
