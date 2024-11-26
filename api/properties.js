@@ -9,6 +9,7 @@ module.exports = async (req, res) => {
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
+      console.error(`Salesforce API Error: ${response.statusText}`);
       return res
         .status(response.status)
         .json({ error: "Failed to fetch data from Salesforce API" });
@@ -16,10 +17,11 @@ module.exports = async (req, res) => {
 
     const data = await response.text(); // Assuming the API returns XML as text
 
+    // Set XML Content-Type header and send response
     res.setHeader("Content-Type", "application/xml");
     res.status(200).send(data);
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error("Internal Server Error:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
