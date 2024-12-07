@@ -1,10 +1,9 @@
-// api/properties/index.js
+// api/properties.js
 const fetch = require("node-fetch");
-const xml2js = require("xml2js");
 
 module.exports = async (req, res) => {
   // Set CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "https://bramwellre.com"); // Replace with your frontend URL
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Allow all origins. Replace "*" with your frontend URL for better security.
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
@@ -22,7 +21,7 @@ module.exports = async (req, res) => {
 
     if (!response.ok) {
       console.error(
-        `Salesforce API Error: ${response.status} - ${response.statusText}`
+        Salesforce API Error: ${response.status} - ${response.statusText}
       );
       return res
         .status(response.status)
@@ -31,12 +30,8 @@ module.exports = async (req, res) => {
 
     const data = await response.text(); // Assuming the API returns XML as text
 
-    // Convert XML to JSON
-    const parser = new xml2js.Parser({ explicitArray: false });
-    const result = await parser.parseStringPromise(data);
-
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).json(result);
+    res.setHeader("Content-Type", "application/xml");
+    res.status(200).send(data);
   } catch (error) {
     console.error("Error during function execution:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
