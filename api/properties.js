@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
 
     if (!response.ok) {
       console.error(
-        Salesforce API Error: ${response.status} - ${response.statusText}
+        `Salesforce API Error: ${response.status} - ${response.statusText}`
       );
       return res
         .status(response.status)
