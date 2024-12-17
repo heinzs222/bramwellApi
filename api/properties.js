@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
   }
 
   const apiUrl =
-    "https://bramwellre.my.salesforce-sites.com/webhook/services/apexrest/XmlResponse/Propertyfinder";
+    "https://bramwellre.my.salesforce-sites.com/webhook/services/apexrest/XmlResponse/Website";
 
   try {
     const response = await fetch(apiUrl);
